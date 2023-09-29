@@ -1,14 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useEffect } from "react";
-import { fetchdata } from "./redux/Product/action";
+import { fetchdata } from "../Redux/action";
+
 import Productcard from "../components/Productcard";
 import { useSearchParams } from "react-router-dom";
-import { Sidebar } from "./sidebar";
+import { FaStar } from "react-icons/fa"
+import { Star } from "../components/star";
+import { Sidebar } from "../components/Sidebar";
 
 const Products = () => {
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.ProductReducer.Productdata);
+  const product = useSelector((state) => state.Productdata);
   const [searchParams] = useSearchParams()
   const paramObj = {
     params: {
@@ -25,6 +28,7 @@ const Products = () => {
   }, [searchParams])
   return (
     <DIV>
+     
       <div className="side">
         <Sidebar />
       </div>

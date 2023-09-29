@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
-
+import { Star } from "./star"
 const Productcard = ({ id, image, name, rating, price }) => {
   return (
     <><DIV>
@@ -11,7 +11,13 @@ const Productcard = ({ id, image, name, rating, price }) => {
       </div>
       <div className="detail">
         <p className="name">{name}</p>
-        <p>Rating :-{rating}</p>
+        <br></br>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Star 
+        rating={rating}
+        />
+        </div>
+        <br></br>
         <h3>M.R.P:-{price}</h3>
       </div>
     </DIV >

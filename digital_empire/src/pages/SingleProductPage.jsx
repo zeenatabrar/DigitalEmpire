@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export const SingleProductPage = () => {
+const SingleProductPage = () => {
   const { id } = useParams()
 
   const [data, setData] = useState({})
@@ -62,4 +62,5 @@ justify-content:space-between;
         text-align:center
     }
  }
-`;
+`
+export default SingleProductPage
