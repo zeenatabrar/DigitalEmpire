@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useEffect } from "react";
-import { fetchdata } from "../Redux/action";
+import { addToCart, fetchdata } from "../Redux/action";
 
 import Productcard from "../components/Productcard";
 import { useSearchParams } from "react-router-dom";
@@ -22,6 +22,10 @@ const Products = () => {
 
   }
 
+  const handleClick =(el)=>{
+    dispatch(addToCart(el))
+  }
+
   useEffect(() => {
     dispatch(fetchdata(paramObj));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,6 +42,7 @@ const Products = () => {
           <Productcard
             key={item.id}
             {...item}
+           handleClick={()=>handleClick(item)}
           ></Productcard>
 
         ))}

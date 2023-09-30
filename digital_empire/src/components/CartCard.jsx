@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import { Star } from "./star"
-const Productcard = ({ id, image, name, rating, price, handleClick }) => {
+const CartCard = ({ id, image, name, rating, price, handleClick, buyProd }) => {
   return (
     <><DIV>
       <div className="img">
@@ -16,11 +16,16 @@ const Productcard = ({ id, image, name, rating, price, handleClick }) => {
         <Star 
         rating={rating}
         />
+
         </div>
         <br></br>
         <h3>M.R.P:-{price}</h3>
         <br />
-        <button onClick={handleClick}>Add to Cart</button>
+        
+        <button onClick={handleClick}>Remove</button>
+        <br />
+        <button onClick={buyProd}>Buy</button>
+       
       </div>
     </DIV >
     </>
@@ -69,4 +74,4 @@ const DIV = styled.div`
   }
 `;
 
-export default Productcard;
+export default CartCard;

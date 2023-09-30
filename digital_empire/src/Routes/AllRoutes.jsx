@@ -8,6 +8,8 @@ import PrivateRoute from '../components/PrivateRoute';
 
 import SingleProductPage from "../pages/SingleProductPage"
 import Products from '../pages/Products';
+import Payment from '../pages/Payment';
+import Cart from '../pages/Cart';
 const AllRoutes = () => {
   return (
     <Routes>
@@ -17,6 +19,8 @@ const AllRoutes = () => {
       <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}></Route>
       <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>}></Route>
       <Route path="/product/:id" element={<PrivateRoute><SingleProductPage /></PrivateRoute>}></Route>
+      <Route path = "/payment" element={<Payment />}></Route>
+      <Route path = "/cart" element={<Cart />}></Route>
     </Routes>
   )
 }
