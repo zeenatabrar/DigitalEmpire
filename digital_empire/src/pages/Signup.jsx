@@ -205,7 +205,7 @@ const Signup = () => {
               </p>
               <FormLabel
                 color="black"
-                marginTop="2rem"
+                marginTop="1rem"
                 className="Nunito"
                 style={{ fontSize: "1.5rem", fontWeight: "bold" }}
               >
@@ -226,7 +226,7 @@ const Signup = () => {
               ></Input>
               <FormLabel
                 color="black"
-                marginTop="2rem"
+                marginTop="1rem"
                 className="Nunito"
                 style={{ fontSize: "1.5rem", fontWeight: "bold" }}
               >
