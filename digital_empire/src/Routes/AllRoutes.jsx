@@ -9,6 +9,8 @@ import Login from "../pages/Login"
 import SingleProductPage from "../pages/SingleProductPage"
 import Products from '../pages/Products';
 
+import Payment from '../pages/Payment';
+
 const AllRoutes = () => {
   return (
     <Routes>
@@ -19,6 +21,7 @@ const AllRoutes = () => {
       <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}></Route>
       <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>}></Route>
       <Route path="/product/:id" element={<PrivateRoute><SingleProductPage /></PrivateRoute>}></Route>
+      <Route path="payment" element={<Payment/>}></Route>
     </Routes>
   )
 }
