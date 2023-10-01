@@ -9,6 +9,7 @@ import { Login } from "../pages/Login";
 import Signup from '../pages/Signup';
 import SingleProductPage from "../pages/SingleProductPage"
 import Products from '../pages/Products';
+import Cart from "../pages/Cart";
 
 import Payment from '../pages/Payment';
 
@@ -21,6 +22,7 @@ const AllRoutes = () => {
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signIn" element={<Signup />}></Route>
       <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}></Route>
+      <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>}></Route>
       <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>}></Route>
       <Route path="/product/:id" element={<PrivateRoute><SingleProductPage /></PrivateRoute>}></Route>
       <Route path="payment" element={<Payment />}></Route>

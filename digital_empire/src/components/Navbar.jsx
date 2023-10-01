@@ -176,7 +176,6 @@ margin-top: 0.3rem;
 
 const Navbar = () => {
   const isAuth = useSelector((store) => store.isAuth);
-  const userName = useSelector((store) => store.userName);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -189,7 +188,8 @@ const Navbar = () => {
     isCart: false,
     isAbout: false,
     isContact: false,
-    isLogin: false
+    isLogin: false,
+    isProfile: false
   }
 
   const [activeLink, setActiveLink] = useState(initialState);
@@ -223,7 +223,8 @@ const Navbar = () => {
             isCart: false,
             isAbout: false,
             isContact: false,
-            isLogin: false
+            isLogin: false,
+            isProfile: false
           };
         });
       }}><Link to={"/"}><img className='logo' src="digital-empire-logo.png" alt="" /></Link></div>
@@ -366,7 +367,8 @@ const Navbar = () => {
                     isCart: false,
                     isAbout: false,
                     isContact: false,
-                    isLogin: false
+                    isLogin: false,
+                    isProfile: false
                   };
                 })
               }}
@@ -388,7 +390,8 @@ const Navbar = () => {
                     isCart: false,
                     isAbout: false,
                     isContact: false,
-                    isLogin: false
+                    isLogin: false,
+                    isProfile: false
                   };
                 })
               }}
@@ -410,7 +413,8 @@ const Navbar = () => {
                     isCart: true,
                     isAbout: false,
                     isContact: false,
-                    isLogin: false
+                    isLogin: false,
+                    isProfile: false
                   };
                 })
               }}
@@ -432,7 +436,8 @@ const Navbar = () => {
                     isCart: false,
                     isAbout: true,
                     isContact: false,
-                    isLogin: false
+                    isLogin: false,
+                    isProfile: false
                   };
                 })
               }}
@@ -454,7 +459,8 @@ const Navbar = () => {
                     isCart: false,
                     isAbout: false,
                     isContact: true,
-                    isLogin: false
+                    isLogin: false,
+                    isProfile: false
                   };
                 })
               }}
@@ -465,11 +471,29 @@ const Navbar = () => {
               isAuth ?
                 // <input type="button" value="Logout" className='logout-btn' />
                 <div style={{ display: "flex", gap: "1rem" }}>
-                  <Text
-                    style={{ fontSize: "1.3rem", textTransform: "uppercase", color: "lightgreen" }}
-                  >
-                    {userName}
-                  </Text>
+                  <ChakraLink
+                    as={ReactRouterLink}
+                    to='/login'
+                    fontSize="lg"
+                    className='nav-link'
+                    style={activeLink.isLogin ? { color: "orangered", opacity: "1" } : { color: "white" }}
+                    onClick={() => {
+                      setActiveLink((prev) => {
+                        return {
+                          ...prev,
+                          isHome: false,
+                          isProducts: false,
+                          isCart: false,
+                          isAbout: false,
+                          isContact: false,
+                          isLogin: false,
+                          isProfile: true
+                        };
+                      })
+                    }}
+                    _hover={{ textDecoration: 'none' }}>
+                    Profile
+                  </ChakraLink>
                   <button className='logout-btn' onClick={handleLogout}>
                     <span></span>
                     Logout
@@ -492,7 +516,8 @@ const Navbar = () => {
                         isCart: false,
                         isAbout: false,
                         isContact: false,
-                        isLogin: true
+                        isLogin: true,
+                        isProfile: false
                       };
                     })
                   }}

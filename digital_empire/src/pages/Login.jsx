@@ -10,7 +10,7 @@ import {
   InputRightElement,
   useToast,
 } from "@chakra-ui/react";
-import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import { Link as ReactRouterLink, useLocation, useNavigate } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -34,6 +34,8 @@ export const Login = () => {
   const isAuth = useSelector((store) => store.isAuth);
   const dispatch = useDispatch();
   const toast = useToast();
+
+  const location = useLocation();
 
   const userRef = useRef();
   const errRef = useRef();
@@ -94,7 +96,7 @@ export const Login = () => {
         isClosable: true,
         position: "top",
       });
-      navigate("/");
+      navigate(location.state);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
