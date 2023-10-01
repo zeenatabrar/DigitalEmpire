@@ -472,7 +472,7 @@ const Navbar = () => {
                 <div style={{ display: "flex", gap: "1rem" }}>
                   <ChakraLink
                     as={ReactRouterLink}
-                    to='/login'
+                    to='/profile'
                     fontSize="lg"
                     className='nav-link'
                     style={activeLink.isLogin ? { color: "orangered", opacity: "1" } : { color: "white" }}

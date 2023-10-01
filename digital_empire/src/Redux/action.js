@@ -23,7 +23,7 @@ export const login = (users, username, password) => (dispatch) => {
     if (newUser === username && newPwd === password) {
       flag = true;
       console.log(element.name, "from action function");
-      dispatch({ type: LOGIN_SUCCESS, payload: element.name });
+      dispatch({ type: LOGIN_SUCCESS, payload: element });
     }
   });
   if (flag === false) {

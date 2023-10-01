@@ -42,6 +42,7 @@ const Signup = () => {
   const [pwdFocus, setPwdFocus] = useState(false);
 
   const [name, setName] = useState("");
+  const [age, setAge] = useState(0);
 
   const [matchPwd, setMatchPwd] = useState("");
   const [validMatch, setValidMatch] = useState(false);
@@ -89,7 +90,7 @@ const Signup = () => {
       return;
     }
     try {
-      let result = register({ email: user, password: pwd, name: name });
+      let result = register({ email: user, password: pwd, name: name, age: age });
       if (result) {
         toast({
           title: "Registration Successful",
@@ -218,6 +219,27 @@ const Signup = () => {
                 autoComplete="off"
                 onChange={(e) => {
                   setName(e.target.value);
+                }}
+                required
+                aria-invalid={validName ? "false" : "true"}
+                aria-describedby="uidnote"
+              ></Input>
+              <FormLabel
+                color="black"
+                marginTop="2rem"
+                className="Nunito"
+                style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+              >
+                Age:
+              </FormLabel>
+              <Input
+                type="number"
+                size={"lg"}
+                id="username"
+                placeholder="Enter Age"
+                autoComplete="off"
+                onChange={(e) => {
+                  setAge(+e.target.value);
                 }}
                 required
                 aria-invalid={validName ? "false" : "true"}

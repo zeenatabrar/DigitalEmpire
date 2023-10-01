@@ -96,7 +96,12 @@ export const Login = () => {
         isClosable: true,
         position: "top",
       });
-      navigate(location.state);
+      if (location.state) {
+        navigate(location.state);
+      }
+      else {
+        navigate("/");
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);

@@ -8,6 +8,7 @@ const initialState = {
   isAuth: false,
   cart: [],
   userName: "",
+  user: {}
 }
 export const ProductReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -23,7 +24,7 @@ export const ProductReducer = (state = initialState, { type, payload }) => {
       }
     case LOGIN_SUCCESS:
       {
-        return { ...state, isAuth: true, userName: payload };
+        return { ...state, isAuth: true, userName: payload.name, user: payload };
       }
     case LOGIN_FAILURE:
       {
