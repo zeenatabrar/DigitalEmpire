@@ -1,7 +1,7 @@
 import { LOGOUT, PRODUCT_ADDED_TO_CART, PRODUCT_DATA_FAILURE, PRODUCT_DATA_LOADING, PRODUCT_DATA_SUCCESS } from "./actionTypes";
 
 const initialState = {
-  isLoading: true,
+  isLoading: false,
   productData: [],
   isError: false,
   theme: "light",
