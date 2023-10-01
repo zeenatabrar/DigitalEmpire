@@ -33,11 +33,12 @@ export const Sidebar = () => {
     order && (params.order = order)
 
     setsearchParams(params)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, order])
   return (
     <Div>
       <CheckboxContainer>
-        <p>Category</p>
+        <p className="heading">Filter by Category</p>
         <label>
           <CheckboxInput
             type="checkbox"
@@ -111,7 +112,7 @@ export const Sidebar = () => {
 
 
       <RadioContainer>
-        <p>Sort by Price</p>
+        <p className="heading">Sort by Price</p>
         <label>
           <RadioInput
             type="radio"
@@ -145,10 +146,6 @@ export const Sidebar = () => {
           Reset
         </label>
       </RadioContainer>
-
-
-
-
     </Div>
 
   )
@@ -156,13 +153,22 @@ export const Sidebar = () => {
 
 const Div = styled.div`
     text-align:center;
-    padding:30px;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
 `
 const RadioContainer = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 16px;
-  margin-top: 20px;
+  /* font-size: 16px; */
+  margin-top: 2rem;
+
+  .heading
+  {
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    font-size: 1.3rem;
+  }
 
   label {
     display: flex;
@@ -185,14 +191,23 @@ const RadioInput = styled.input`
   cursor: pointer;
 
   &:checked {
-    background-color: #000;
+    background-color: orange;
   }
 `;
 const CheckboxContainer = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 16px;
-  margin-bottom: 10px;
+  /* font-size: 16px; */
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+
+  .heading
+  {
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    font-size: 1.3rem;
+  }
 
   label {
     display: flex;
@@ -216,7 +231,7 @@ const CheckboxInput = styled.input`
   cursor: pointer;
 
   &:checked {
-    background-color: #a26e6e;
+    background-color: orange;
   }
 `;
 

@@ -1,0 +1,14 @@
+{
+  "githubPullRequests.ignoredPullRequestBranches": ["main"],
+  "cSpell.words": [
+    "Chakra",
+    "fetchdata",
+    "handlechange",
+    "handleorder",
+    "newcategory",
+    "Productcard",
+    "setcategory",
+    "setorder",
+    "setsearch"
+  ]
+}

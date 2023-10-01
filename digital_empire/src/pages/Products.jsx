@@ -11,7 +11,7 @@ import { Sidebar } from "../components/Sidebar";
 
 const Products = () => {
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.Productdata);
+  const product = useSelector((state) => state.productData);
   const [searchParams] = useSearchParams()
   const paramObj = {
     params: {
@@ -28,7 +28,7 @@ const Products = () => {
   }, [searchParams])
   return (
     <DIV>
-     
+
       <div className="side">
         <Sidebar />
       </div>
@@ -60,7 +60,8 @@ const DIV = styled.div`
   }
   
   .product {
-    width: 75%;
+    margin-top: 1.5rem;
+    width: 80%;
   }
 
   @media (max-width: 768px) { 
