@@ -17,27 +17,32 @@ const SingleProductPage = () => {
   const [data, setData] = useState({})
   const fetch = (id) => {
     axios.get(`https://digital-empire.onrender.com/products/${id}`)
-      .then((res) => setData(res.data));
+      .then((res) => {
+        setData(res.data);
+        setData((prev) => {
+          return { ...prev, price: prev.price.toLocaleString("en-In") }
+        });
+      });
   }
   const handleButtonClick = () => {
     setIsButtonDisabled(true);
     dispatch({ type: PRODUCT_ADDED_TO_CART, payload: data })
   }
   useEffect(() => {
-    fetch(id)
-
+    fetch(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  console.log(id)
+  console.log(id);
+  // const price = data.price.toLocaleString("en-In");
   return (
     <DIV>
       <Container>
         <CenteredImage src={data.image} alt="Your Image" />
       </Container>
       <div className="Detail">
-        <p className="name">{data.name}</p>
+        <p className="name"><b>{data.name}</b></p>
         <br></br>
-        <p style={{ fontSize: "20px" }}><b>M.R.P- ₹{data.price}</b></p>
+        <p style={{ fontSize: "25px" }}><b>₹ {data.price}</b></p>
         <br />
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Star
@@ -45,7 +50,9 @@ const SingleProductPage = () => {
           />
         </div>
         <br />
-        <p className="information"><i><b>Information</b></i> - {data.info}</p>
+        <p className="information">
+          <InformationHeading>Information</InformationHeading>
+          <br /> {data.info}</p>
         <br />
         <DetailsContainer>
           <DetailsHeading>Details</DetailsHeading>
@@ -81,7 +88,14 @@ justify-content:space-between;
  };
  .Detail{
     width:50%;
-    padding-top:20px;
+    padding-top:2rem;
+    padding-bottom: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin-top: 1rem;
+    border-radius: 5%;
+    /* box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px; */
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     .name{
       font-size:30px;
       text-align:center
@@ -94,9 +108,8 @@ justify-content:space-between;
         font-size:20px;
         text-align:center
     };
-   
- }
- @media (max-width: 768px) {
+}
+  @media (max-width: 768px) {
     flex-direction: column;
 
     .Image,
@@ -112,15 +125,22 @@ justify-content:space-between;
 
 `
 const DetailsContainer = styled.div`
-
   padding: 20px;
   border-radius: 5px;
   margin-bottom: 20px;
 `;
 
+const InformationHeading = styled.h1`
+font-size:25px;
+/* font-style: italic; */
+font-weight: bold;
+margin-top: 1rem;
+`;
+
 const DetailsHeading = styled.h2`
-  font-size:30px;
+  font-size:25px;
   margin-bottom: 10px;
+  font-weight: bold;
 `;
 
 const DetailsList = styled.ul`
@@ -136,16 +156,20 @@ const DetailItem = styled.li`
 const Container = styled.div`
   display: flex;
   align-items: center;
-  
- 
   justify-content: center;
   height: 100vh; /* Set the height of the container */
-`;
+  `;
 
 const CenteredImage = styled.img`
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  border-radius: 5%;
   max-height: 100%; /* Ensure the image doesn't exceed the container's height */
   max-width: 100%; /* Ensure the image doesn't exceed the container's width */
   margin: auto; /* Center the image within the container */
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  padding: 0.5rem;
 `;
 const ActionButton = styled.button`
   padding: 10px 20px;
