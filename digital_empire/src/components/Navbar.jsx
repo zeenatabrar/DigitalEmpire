@@ -11,8 +11,7 @@ import {
   MenuItem,
   MenuButton,
   MenuList,
-  Button,
-  Text
+  Button
 } from '@chakra-ui/react';
 import { NavLink as ReactRouterLink, useNavigate } from 'react-router-dom'
 import { SearchIcon } from "@chakra-ui/icons";
