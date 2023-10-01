@@ -2,13 +2,20 @@
   "githubPullRequests.ignoredPullRequestBranches": ["main"],
   "cSpell.words": [
     "Chakra",
+    "errmsg",
     "fetchdata",
+    "fontawesome",
+    "formsection",
+    "fortawesome",
     "handlechange",
     "handleorder",
     "newcategory",
     "Productcard",
+    "pwdnote",
     "setcategory",
     "setorder",
-    "setsearch"
+    "setsearch",
+    "Signup",
+    "uidnote"
   ]
 }

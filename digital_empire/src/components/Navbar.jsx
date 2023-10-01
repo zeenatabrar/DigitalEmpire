@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   InputGroup,
@@ -7,9 +7,25 @@ import {
   IconButton,
   Link as ChakraLink,
   HStack,
+  Menu,
+  MenuItem,
+  MenuButton,
+  MenuList,
+  Button,
+  Text
 } from '@chakra-ui/react';
-import { NavLink as ReactRouterLink } from 'react-router-dom'
-import { SearchIcon } from "@chakra-ui/icons";
+import { NavLink, NavLink as ReactRouterLink, useNavigate } from 'react-router-dom'
+import {
+  HamburgerIcon,
+  SearchIcon,
+  AddIcon,
+  ExternalLinkIcon,
+  RepeatIcon,
+  EditIcon
+} from "@chakra-ui/icons";
+import { FaBars, FaCartArrowDown, FaHome, FaProductHunt, FaTimes } from "react-icons/fa";
+import { FcAbout, FcContacts } from "react-icons/fc";
+import { SlLogin, SlLogout } from "react-icons/sl";
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../Redux/action';
 import { Link } from "react-router-dom";
@@ -167,6 +183,7 @@ margin-top: 0.3rem;
 
 const Navbar = () => {
   const isAuth = useSelector((store) => store.isAuth);
+  const userName = useSelector((store) => store.userName);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -184,9 +201,39 @@ const Navbar = () => {
 
   const [activeLink, setActiveLink] = useState(initialState);
 
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 950);
+
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth < 950);
+  };
+
+  useEffect(() => {
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // Empty dependency array ensures the effect runs once after the initial render
+
+  const navigate = useNavigate();
+
   return (
     <NAVBAR>
-      <div><Link to={"/"}><img className='logo' src="digital-empire-logo.png" alt="" /></Link></div>
+      <div onClick={() => {
+        setActiveLink((prev) => {
+          return {
+            ...prev,
+            isHome: true,
+            isProducts: false,
+            isCart: false,
+            isAbout: false,
+            isContact: false,
+            isLogin: false
+          };
+        });
+      }}><Link to={"/"}><img className='logo' src="digital-empire-logo.png" alt="" /></Link></div>
       <InputGroup>
         <Input type='text' placeholder='Search' bgColor={'white'}>
         </Input>
@@ -199,131 +246,212 @@ const Navbar = () => {
           />
         </InputRightElement>
       </InputGroup>
-      <HStack spacing={5} color="white" id='Links'>
-        <ChakraLink
-          as={ReactRouterLink}
-          to='/' fontSize="lg"
-          className='nav-link'
-          style={activeLink.isHome ? { color: "orangered", opacity: "1" } : { color: "white" }}
-          onClick={() => {
-            setActiveLink((prev) => {
-              return {
-                ...prev,
-                isHome: true,
-                isProducts: false,
-                isCart: false,
-                isAbout: false,
-                isContact: false,
-                isLogin: false
-              };
-            })
-          }}
-          _hover={{ textDecoration: 'none' }}>
-          Home
-        </ChakraLink>
-        <ChakraLink
-          as={ReactRouterLink}
-          to='/products'
-          fontSize="lg"
-          className='nav-link'
-          style={activeLink.isProducts ? { color: "orangered", opacity: "1" } : { color: "white" }}
-          onClick={() => {
-            setActiveLink((prev) => {
-              return {
-                ...prev,
-                isHome: false,
-                isProducts: true,
-                isCart: false,
-                isAbout: false,
-                isContact: false,
-                isLogin: false
-              };
-            })
-          }}
-          _hover={{ textDecoration: 'none' }}>
-          Products
-        </ChakraLink>
-        <ChakraLink
-          as={ReactRouterLink}
-          to='/cart'
-          fontSize="lg"
-          className='nav-link'
-          style={activeLink.isCart ? { color: "orangered", opacity: "1" } : { color: "white" }}
-          onClick={() => {
-            setActiveLink((prev) => {
-              return {
-                ...prev,
-                isHome: false,
-                isProducts: false,
-                isCart: true,
-                isAbout: false,
-                isContact: false,
-                isLogin: false
-              };
-            })
-          }}
-          _hover={{ textDecoration: 'none' }}>
-          Cart
-        </ChakraLink>
-        <ChakraLink
-          as={ReactRouterLink}
-          to='/about'
-          fontSize="lg"
-          className='nav-link'
-          style={activeLink.isAbout ? { color: "orangered", opacity: "1" } : { color: "white" }}
-          onClick={() => {
-            setActiveLink((prev) => {
-              return {
-                ...prev,
-                isHome: false,
-                isProducts: false,
-                isCart: false,
-                isAbout: true,
-                isContact: false,
-                isLogin: false
-              };
-            })
-          }}
-          _hover={{ textDecoration: 'none' }}>
-          About
-        </ChakraLink>
-        <ChakraLink
-          as={ReactRouterLink}
-          to='/contact'
-          fontSize="lg"
-          className='nav-link'
-          style={activeLink.isContact ? { color: "orangered", opacity: "1" } : { color: "white" }}
-          onClick={() => {
-            setActiveLink((prev) => {
-              return {
-                ...prev,
-                isHome: false,
-                isProducts: false,
-                isCart: false,
-                isAbout: false,
-                isContact: true,
-                isLogin: false
-              };
-            })
-          }}
-          _hover={{ textDecoration: 'none' }}>
-          Contact
-        </ChakraLink>
-        {
-          isAuth ?
-            // <input type="button" value="Logout" className='logout-btn' />
-            <button className='logout-btn' onClick={handleLogout}>
-              <span></span>
-              Logout
-              <span></span>
-            </button>
-            :
+      {
+        isSmallScreen ?
+          (<Menu>
+            {({ isOpen }) => (
+              <>
+                <MenuButton
+                  isActive={isOpen}
+                  as={IconButton}
+                  aria-label='Options'
+                  icon={isOpen ? <FaTimes /> : <FaBars />}
+                />
+                <MenuList>
+                  <MenuItem
+                    icon={<FaHome />}
+                    onClick={() => { navigate("/") }}
+                  >
+                    <ChakraLink
+                      as={ReactRouterLink}
+                      to='/' fontSize="lg"
+                      className='nav-link'
+                      style={{ color: "green", opacity: "1" }}
+                      _hover={{ textDecoration: 'none' }}>
+                      Home
+                    </ChakraLink>
+                  </MenuItem>
+                  <MenuItem
+                    icon={<FaProductHunt />}
+                    onClick={() => { navigate("/products") }}
+                  >
+                    <ChakraLink
+                      as={ReactRouterLink}
+                      to='/products'
+                      fontSize="lg"
+                      className='nav-link'
+                      style={{ color: "green", opacity: "1" }}
+                      _hover={{ textDecoration: 'none' }}>
+                      Products
+                    </ChakraLink>
+                  </MenuItem>
+                  <MenuItem
+                    icon={<FaCartArrowDown />}
+                    onClick={() => { navigate("/cart") }}
+                  >
+                    <ChakraLink
+                      as={ReactRouterLink}
+                      to='/cart'
+                      fontSize="lg"
+                      className='nav-link'
+                      style={{ color: "green", opacity: "1" }}
+                      _hover={{ textDecoration: 'none' }}>
+                      Cart
+                    </ChakraLink>
+                  </MenuItem>
+                  <MenuItem
+                    icon={<FcAbout />}
+                    onClick={() => { navigate("/about") }}
+                  >
+                    <ChakraLink
+                      as={ReactRouterLink}
+                      to='/about'
+                      fontSize="lg"
+                      className='nav-link'
+                      style={{ color: "green", opacity: "1" }}
+                      _hover={{ textDecoration: 'none' }}>
+                      About
+                    </ChakraLink>
+                  </MenuItem>
+                  <MenuItem
+                    icon={<FcContacts />}
+                    onClick={() => { navigate("/contact") }}
+                  >
+                    <ChakraLink
+                      as={ReactRouterLink}
+                      to='/contact'
+                      fontSize="lg"
+                      className='nav-link'
+                      style={{ color: "green", opacity: "1" }}
+                      _hover={{ textDecoration: 'none' }}>
+                      Contact
+                    </ChakraLink>
+                  </MenuItem>
+                  {
+                    isAuth
+                      ?
+                      <MenuItem>
+                        <Button
+                          leftIcon={<SlLogout />}
+                          onClick={handleLogout}
+                          bgColor="red.300"
+                          _hover={{ bg: "red.300", color: "initial" }}
+                        >
+                          Logout
+                        </Button>
+                      </MenuItem>
+                      :
+                      <MenuItem
+                        onClick={() => { navigate("/login") }}
+                      >
+                        <Button
+                          leftIcon={<SlLogin />}
+                          bgColor="green.300"
+                          _hover={{ bg: "green.300", color: "initial" }}
+                        >
+                          Login
+                        </Button>
+                      </MenuItem>
+                  }
+                </MenuList>
+              </>
+            )}
+          </Menu>)
+          :
+          (<HStack spacing={5} color="white" id='Links'>
             <ChakraLink
               as={ReactRouterLink}
-              to='/login'
+              to='/' fontSize="lg"
+              className='nav-link'
+              style={activeLink.isHome ? { color: "orangered", opacity: "1" } : { color: "white" }}
+              onClick={() => {
+                setActiveLink((prev) => {
+                  return {
+                    ...prev,
+                    isHome: true,
+                    isProducts: false,
+                    isCart: false,
+                    isAbout: false,
+                    isContact: false,
+                    isLogin: false
+                  };
+                })
+              }}
+              _hover={{ textDecoration: 'none' }}>
+              Home
+            </ChakraLink>
+            <ChakraLink
+              as={ReactRouterLink}
+              to='/products'
               fontSize="lg"
               className='nav-link'
-              style={activeLink.isLogin ? { color: "orangered", opacity: "1" } : { color: "white" }}
+              style={activeLink.isProducts ? { color: "orangered", opacity: "1" } : { color: "white" }}
+              onClick={() => {
+                setActiveLink((prev) => {
+                  return {
+                    ...prev,
+                    isHome: false,
+                    isProducts: true,
+                    isCart: false,
+                    isAbout: false,
+                    isContact: false,
+                    isLogin: false
+                  };
+                })
+              }}
+              _hover={{ textDecoration: 'none' }}>
+              Products
+            </ChakraLink>
+            <ChakraLink
+              as={ReactRouterLink}
+              to='/cart'
+              fontSize="lg"
+              className='nav-link'
+              style={activeLink.isCart ? { color: "orangered", opacity: "1" } : { color: "white" }}
+              onClick={() => {
+                setActiveLink((prev) => {
+                  return {
+                    ...prev,
+                    isHome: false,
+                    isProducts: false,
+                    isCart: true,
+                    isAbout: false,
+                    isContact: false,
+                    isLogin: false
+                  };
+                })
+              }}
+              _hover={{ textDecoration: 'none' }}>
+              Cart
+            </ChakraLink>
+            <ChakraLink
+              as={ReactRouterLink}
+              to='/about'
+              fontSize="lg"
+              className='nav-link'
+              style={activeLink.isAbout ? { color: "orangered", opacity: "1" } : { color: "white" }}
+              onClick={() => {
+                setActiveLink((prev) => {
+                  return {
+                    ...prev,
+                    isHome: false,
+                    isProducts: false,
+                    isCart: false,
+                    isAbout: true,
+                    isContact: false,
+                    isLogin: false
+                  };
+                })
+              }}
+              _hover={{ textDecoration: 'none' }}>
+              About
+            </ChakraLink>
+            <ChakraLink
+              as={ReactRouterLink}
+              to='/contact'
+              fontSize="lg"
+              className='nav-link'
+              style={activeLink.isContact ? { color: "orangered", opacity: "1" } : { color: "white" }}
               onClick={() => {
                 setActiveLink((prev) => {
                   return {
@@ -332,17 +460,56 @@ const Navbar = () => {
                     isProducts: false,
                     isCart: false,
                     isAbout: false,
-                    isContact: false,
-                    isLogin: true
+                    isContact: true,
+                    isLogin: false
                   };
                 })
               }}
               _hover={{ textDecoration: 'none' }}>
-              Login
+              Contact
             </ChakraLink>
-        }
-      </HStack>
-    </NAVBAR>
+            {
+              isAuth ?
+                // <input type="button" value="Logout" className='logout-btn' />
+                <div style={{ display: "flex", gap: "1rem" }}>
+                  <Text
+                    style={{ fontSize: "1.3rem", textTransform: "uppercase", color: "lightgreen" }}
+                  >
+                    {userName}
+                  </Text>
+                  <button className='logout-btn' onClick={handleLogout}>
+                    <span></span>
+                    Logout
+                    <span></span>
+                  </button>
+                </div>
+                :
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to='/login'
+                  fontSize="lg"
+                  className='nav-link'
+                  style={activeLink.isLogin ? { color: "orangered", opacity: "1" } : { color: "white" }}
+                  onClick={() => {
+                    setActiveLink((prev) => {
+                      return {
+                        ...prev,
+                        isHome: false,
+                        isProducts: false,
+                        isCart: false,
+                        isAbout: false,
+                        isContact: false,
+                        isLogin: true
+                      };
+                    })
+                  }}
+                  _hover={{ textDecoration: 'none' }}>
+                  Login
+                </ChakraLink>
+            }
+          </HStack>)
+      }
+    </NAVBAR >
   )
 }
 

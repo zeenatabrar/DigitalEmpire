@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Input,Heading,Button,Textarea,Text } from '@chakra-ui/react'
+import { Input, Heading, Button, Textarea, Text } from '@chakra-ui/react'
 import {
   Table,
   Thead,
@@ -10,7 +10,7 @@ import {
   Th,
   Td,
 
-  TableContainer,Flex
+  TableContainer, Flex
 } from '@chakra-ui/react'
 
 import {
@@ -24,71 +24,71 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 
-import { RecaptchaVerifier,getAuth,signInWithPhoneNumber  } from '@firebase/auth'
+import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from '@firebase/auth'
 
 const Payment = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-// payment method-----------------------------------------------------------
-  const [paymentMethod,setPaymentMethod]=useState('')
+  // payment method-----------------------------------------------------------
+  const [paymentMethod, setPaymentMethod] = useState('')
 
 
 
-  const handlePayment=(e)=>{
-    let {value}=e.target
+  const handlePayment = (e) => {
+    let { value } = e.target
     setPaymentMethod(value)
   }
 
-// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
-  function handleSubmit(e){
+  function handleSubmit(e) {
     e.preventDefault()
-    if(paymentMethod==='card'){
+    if (paymentMethod === 'card') {
       onOpen()
     }
-    else{
+    else {
 
     }
   }
 
-// OTP verification------------------------------------------------------------
-const [mobile,setMobile]=useState('')
-console.log(mobile)
+  // OTP verification------------------------------------------------------------
+  const [mobile, setMobile] = useState('')
+  console.log(mobile)
 
-function setupRecaptcha(){
-  const auth = getAuth();
-  window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
-  'size': 'invisible',
-  'callback': (response) => {
-    // reCAPTCHA solved, allow signInWithPhoneNumber.
-    onSentOtp();
-    console.log('Recaptcha verified')
+  function setupRecaptcha() {
+    const auth = getAuth();
+    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
+      'size': 'invisible',
+      'callback': (response) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        onSentOtp();
+        console.log('Recaptcha verified');
+      }
+    });
   }
-});
-}
 
-const onSentOtp=()=>{
-  setupRecaptcha()
-      const phoneNumber ='+91' + mobile
+  const onSentOtp = () => {
+    setupRecaptcha()
+    const phoneNumber = '+91' + mobile
     const appVerifier = window.recaptchaVerifier;
-    
+
 
     const auth = getAuth();
-        signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-            .then((confirmationResult) => {
-              // SMS sent. Prompt user to type the code from the message, then sign the
-              // user in with confirmationResult.confirm(code).
-              window.confirmationResult = confirmationResult;
-              console.log('otp sent')
-              // ...
-            }).catch((error) => {
-              // Error; SMS not sent
-              // ...
-              console.log('SMS not sent')
-            });
-}
-// ----------------------------------------------------------------------------
-  
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      .then((confirmationResult) => {
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        window.confirmationResult = confirmationResult;
+        console.log('otp sent')
+        // ...
+      }).catch((error) => {
+        // Error; SMS not sent
+        // ...
+        console.log('SMS not sent')
+      });
+  }
+  // ----------------------------------------------------------------------------
+
   return (
     <DIV>
       <div className='form-side'>
@@ -101,7 +101,7 @@ const onSentOtp=()=>{
             <div className='name-surname'>
               <div className='first-name'>
                 <label>FirstName</label>
-                <Input type="text"/>
+                <Input type="text" />
               </div>
               <div className="last-name">
                 <label>Last Name</label>
@@ -112,7 +112,7 @@ const onSentOtp=()=>{
             <div className="phone-adress">
               <div className="phone">
                 <label>Phone Number</label>
-                <Input type="number" value={mobile} onChange={(e)=>{setMobile(e.target.value)}}/>
+                <Input type="number" value={mobile} onChange={(e) => { setMobile(e.target.value) }} />
               </div>
               <div className="email">
                 <label>Email Address</label>
@@ -138,24 +138,24 @@ const onSentOtp=()=>{
                 <label>Zip-code</label>
                 <Input type="number" />
               </div>
-            </div> 
+            </div>
 
             <h3 className='pay-head'>Payment Method</h3>
             <div className="payment-type">
-              
+
               <div className="card pay">
-                <input type="radio" name='card' value='card' checked={paymentMethod==='card'} onChange={handlePayment}/>
+                <input type="radio" name='card' value='card' checked={paymentMethod === 'card'} onChange={handlePayment} />
                 <label>Card</label>
               </div>
               <div className="upi pay">
-                <input type="radio" name='upi' value='upi' checked={paymentMethod==='upi'} onChange={handlePayment}/>
+                <input type="radio" name='upi' value='upi' checked={paymentMethod === 'upi'} onChange={handlePayment} />
                 <label>Upi</label>
               </div>
               <div className="cash pay">
-                <input type="radio" name='cash' value='cash' checked={paymentMethod==='cash'} onChange={handlePayment}/>
+                <input type="radio" name='cash' value='cash' checked={paymentMethod === 'cash'} onChange={handlePayment} />
                 <label>Cash on delivery</label>
               </div>
-             
+
             </div>
 
             <div className="place-order">
@@ -185,7 +185,7 @@ const onSentOtp=()=>{
                 <Td>1</Td>
                 <Td isNumeric>200000</Td>
               </Tr>
-              
+
             </Tbody>
             <Tfoot>
               <Tr>
@@ -206,17 +206,17 @@ const onSentOtp=()=>{
             <ModalBody>
 
               <Text mt={3}>Card Name</Text>
-              <Input type="text"  />
+              <Input type="text" />
               <Text mt={3}>Card Number</Text>
-              <Input type="text"/>
+              <Input type="text" />
               <Flex className='cvv' gap={2} mt={3}>
                 <div>
-                <Text>expiry date</Text>
-                <Input type="text"/>
+                  <Text>expiry date</Text>
+                  <Input type="text" />
                 </div>
                 <div>
                   <Text>CVV</Text>
-                  <Input type='password'/>
+                  <Input type='password' />
                 </div>
               </Flex>
 
@@ -231,12 +231,12 @@ const onSentOtp=()=>{
           </ModalContent>
         </Modal>
       </div>
-      
+
     </DIV>
   )
 }
 
-const DIV=styled.div`
+const DIV = styled.div`
   /* margin: 0px; */
   text-align: left;
   /* background-color: #f4f3e8; */
