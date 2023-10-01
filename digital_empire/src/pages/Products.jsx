@@ -1,18 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { useEffect } from "react";
 import { fetchdata } from "../Redux/action";
-
-import Productcard from "../components/Productcard";
 import { useSearchParams } from "react-router-dom";
-import { FaStar } from "react-icons/fa"
-import { Star } from "../components/star";
 import { Sidebar } from "../components/Sidebar";
+import styled from "styled-components";
+import Productcard from "../components/Productcard";
+import Loading from "../components/Loading";
 
 const Products = () => {
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.productData);
-  const [searchParams] = useSearchParams()
+  const product = useSelector((store) => store.productData);
+  const isLoading = useSelector((store) => store.isLoading);
+  const [searchParams] = useSearchParams();
   const paramObj = {
     params: {
       Category: searchParams.getAll("Category"),
@@ -25,7 +24,7 @@ const Products = () => {
   useEffect(() => {
     dispatch(fetchdata(paramObj));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams])
+  }, [searchParams]);
   return (
     <DIV>
 
@@ -34,12 +33,11 @@ const Products = () => {
       </div>
       <div className="product">
 
-        {product.map((item) => (
+        {isLoading ? <Loading /> : product.map((item) => (
           <Productcard
             key={item.id}
             {...item}
           ></Productcard>
-
         ))}
 
         <br />
@@ -64,7 +62,19 @@ const DIV = styled.div`
     width: 80%;
   }
 
-  @media (max-width: 768px) { 
+  @media (max-width: 1240px)
+  {
+    .side
+    {
+      width: 30%;
+    }
+    .product
+    {
+      width: 70%;
+    }
+  }
+
+  @media (max-width: 820px) { 
     flex-direction: column; 
     align-items: center;
     text-align: center; 

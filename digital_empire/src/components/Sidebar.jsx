@@ -153,7 +153,7 @@ export const Sidebar = () => {
 
 const Div = styled.div`
     text-align:center;
-    padding-right: 1.5rem;
+    /* padding-right: 1.5rem; */
     padding-left: 1.5rem;
 `
 const RadioContainer = styled.div`
