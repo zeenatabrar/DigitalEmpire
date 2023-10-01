@@ -14,15 +14,8 @@ import {
   Button,
   Text
 } from '@chakra-ui/react';
-import { NavLink, NavLink as ReactRouterLink, useNavigate } from 'react-router-dom'
-import {
-  HamburgerIcon,
-  SearchIcon,
-  AddIcon,
-  ExternalLinkIcon,
-  RepeatIcon,
-  EditIcon
-} from "@chakra-ui/icons";
+import { NavLink as ReactRouterLink, useNavigate } from 'react-router-dom'
+import { SearchIcon } from "@chakra-ui/icons";
 import { FaBars, FaCartArrowDown, FaHome, FaProductHunt, FaTimes } from "react-icons/fa";
 import { FcAbout, FcContacts } from "react-icons/fc";
 import { SlLogin, SlLogout } from "react-icons/sl";
