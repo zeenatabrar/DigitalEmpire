@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, GridItem, Heading, Text, VStack, HStack, Image, Spacer, Stack } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
-import { FaCopyright, FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
+import { FaCopyright, FaTwitter, FaYoutube, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -60,6 +60,7 @@ const Footer = () => {
           <FaTwitter></FaTwitter>
           <FaYoutube></FaYoutube>
           <FaInstagram></FaInstagram>
+          <FaWhatsapp></FaWhatsapp>
         </HStack>
       </Stack>
     </div >
