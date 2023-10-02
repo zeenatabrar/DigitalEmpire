@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid, GridItem, Heading, Text, VStack, HStack, Image, Spacer, Stack } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { FaCopyright, FaTwitter, FaYoutube, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import styled from 'styled-components';
 
 const Footer = () => {
   return (
@@ -50,21 +51,52 @@ const Footer = () => {
       </Grid>
       <hr style={{ height: "1px", background: "black" }} />
       <Stack w="100%" pl={10} pr={20} mt="0.5rem" direction={{ lg: "row", md: "column", sm: "column" }}>
-        <HStack spacing={4}>
-          <Image src="digital-empire-logo.png" w="13rem"></Image>
-          <FaCopyright />
-          <Text fontSize={"sm"}>2023 All rights reserved.</Text>
-        </HStack>
+        <FL>
+          <HStack spacing={4} className='footer-logo-section'>
+            <Image src="digital-empire-logo.png" w="13rem"></Image>
+            <FaCopyright />
+            <Text fontSize={"sm"}>2023 All rights reserved.</Text>
+          </HStack>
+        </FL>
         <Spacer></Spacer>
-        <HStack spacing={6}>
-          <FaTwitter></FaTwitter>
-          <FaYoutube></FaYoutube>
-          <FaInstagram></FaInstagram>
-          <FaWhatsapp></FaWhatsapp>
-        </HStack>
+        <SL>
+          <HStack spacing={6} className='social-logo-section'>
+            <FaTwitter></FaTwitter>
+            <FaYoutube></FaYoutube>
+            <FaInstagram></FaInstagram>
+            <FaWhatsapp></FaWhatsapp>
+          </HStack>
+        </SL>
       </Stack>
     </div >
   )
 }
+
+const FL = styled.div`
+@media (max-width: 542px)
+{
+  .footer-logo-section
+  {
+    display: flex;
+    flex-direction: column;
+  }
+}
+`;
+
+const SL = styled.div`
+
+display: flex;
+justify-content: center;
+
+@media (max-width: 542px)
+{
+  .social-logo-section
+  {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}
+`;
 
 export default Footer
