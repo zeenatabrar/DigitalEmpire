@@ -1,3 +1,11 @@
 {
-  "githubPullRequests.ignoredPullRequestBranches": ["main"]
+  "githubPullRequests.ignoredPullRequestBranches": ["main"],
+  "cSpell.words": [
+    "chakra",
+    "controler",
+    "coverflow",
+    "Signup",
+    "Swiper",
+    "webfonts"
+  ]
 }

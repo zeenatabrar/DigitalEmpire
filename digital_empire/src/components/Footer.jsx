@@ -1,8 +1,68 @@
 import React from 'react'
+import { Grid, GridItem, Heading, Text, VStack, HStack, Image, Spacer, Stack } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
+import { FaCopyright, FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <div style={{ backgroundColor: "#edf2f7", marginTop: "2rem" }}>
+      <Grid
+        // bgColor="#e6dcc8"
+        // bgColor="#edf2f7"
+        gap={6}
+        templateColumns={{ lg: "repeat(4,1fr)", md: "repeat(2,1fr)", sm: "repeat(1,1fr)" }}
+        mb={6}
+      >
+        <GridItem mt={4}>
+          <VStack spacing={3}>
+            <Heading fontSize="1.2rem" mb={3}>Company</Heading>
+            <Link to="/about"><Text fontSize="md" color={"blue.400"}>About us</Text></Link>
+            <Text fontSize="md" color={"blue.400"}>Blog</Text>
+            <Text fontSize="md" color={"blue.400"}>Careers</Text>
+            <Link to="/contact"><Text fontSize="md" color={"blue.400"}>Contact us</Text></Link>
+          </VStack>
+        </GridItem>
+        <GridItem mt={4}>
+          <VStack spacing={3}>
+            <Heading fontSize="1.2rem" mb={3}>Social</Heading>
+            <Text fontSize="md" color={"blue.400"}>Help Center</Text>
+            <Text fontSize="md" color={"blue.400"}>Facebook</Text>
+            <Text fontSize="md" color={"blue.400"}>youtube</Text>
+            <Text fontSize="md" color={"blue.400"}>Community Guidelines</Text>
+          </VStack>
+        </GridItem>
+        <GridItem mt={4}>
+          <VStack spacing={3}>
+            <Heading fontSize="1.2rem" mb={3}>Legal</Heading>
+            <Text fontSize="md" color={"blue.400"}>Cookies Policy</Text>
+            <Text fontSize="md" color={"blue.400"}>Privacy Policy</Text>
+            <Text fontSize="md" color={"blue.400"}>Terms and services</Text>
+            <Text fontSize="md" color={"blue.400"}>Press Releases</Text>
+          </VStack>
+        </GridItem>
+        <GridItem mt={4}>
+          <VStack spacing={3}>
+            <Heading fontSize="1.2rem" mb={3}>Install App</Heading>
+            <Image src="https://trippy-time.vercel.app/static/media/google-play.a642dda447fd0d634216.png" w="10rem"></Image>
+            <Image src='https://trippy-time.vercel.app/static/media/appstore.991016dd0c414dd7de02.png' w="10rem"></Image>
+          </VStack>
+        </GridItem>
+      </Grid>
+      <hr style={{ height: "1px", background: "black" }} />
+      <Stack w="100%" pl={10} pr={20} mt="0.5rem" direction={{ lg: "row", md: "column", sm: "column" }}>
+        <HStack spacing={4}>
+          <Image src="digital-empire-logo.png" w="13rem"></Image>
+          <FaCopyright />
+          <Text fontSize={"sm"}>2023 All rights reserved.</Text>
+        </HStack>
+        <Spacer></Spacer>
+        <HStack spacing={6}>
+          <FaTwitter></FaTwitter>
+          <FaYoutube></FaYoutube>
+          <FaInstagram></FaInstagram>
+        </HStack>
+      </Stack>
+    </div >
   )
 }
 
