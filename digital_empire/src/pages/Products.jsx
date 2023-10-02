@@ -11,7 +11,6 @@ import { Button } from "@chakra-ui/react";
 const Products = () => {
   const dispatch = useDispatch();
   const product = useSelector((store) => store.productData);
-  const count = useSelector((store) => store.page);
   const isLoading = useSelector((store) => store.isLoading);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchParams] = useSearchParams();
