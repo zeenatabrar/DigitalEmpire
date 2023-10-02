@@ -2,7 +2,7 @@ import axios from "axios"
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, PRODUCT_DATA_FAILURE, PRODUCT_DATA_LOADING, PRODUCT_DATA_SUCCESS, SEARCH, SEARCH_FAILURE } from "./actionTypes"
 export const fetchdata = (currentPage, params) => (dispatch) => {
   dispatch({ type: PRODUCT_DATA_LOADING });
-  axios.get(`https://digital-empire.onrender.com/products??_limit=10&_page=${currentPage}`, params)
+  axios.get(`https://digital-empire.onrender.com/products?_limit=10&_page=${currentPage}`, params)
     .then(res => {
       console.log(res.headers["x-total-count"])
       dispatch({ type: PRODUCT_DATA_SUCCESS, payload: res })

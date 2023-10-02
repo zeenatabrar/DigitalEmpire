@@ -6,6 +6,7 @@ import { Sidebar } from "../components/Sidebar";
 import styled from "styled-components";
 import Productcard from "../components/Productcard";
 import Loading from "../components/Loading";
+import { Button } from "@chakra-ui/react";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -27,12 +28,13 @@ const Products = () => {
       Category: searchParams.getAll("Category"),
       _sort: searchParams.get("order") && "price",
       _order: searchParams.get("order"),
+      _page: currentPage,
     }
 
   }
 
   useEffect(() => {
-    dispatch(fetchdata(paramObj));
+    dispatch(fetchdata(currentPage, paramObj));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, searchParams]);
   return (
@@ -52,15 +54,33 @@ const Products = () => {
 
         <br />
         <div>
-          <button disabled={currentPage === 1 ? true : false} onClick={decrement}>
+          <Button
+            onClick={() => {
+              if (currentPage > 1) {
+                decrement();
+              }
+            }}
+            bgColor={"royalblue"}
+            _hover={{ backgroundColor: "royalblue" }}
+            mr={3}
+          >
             PREVIOUS
-          </button>
+          </Button>
 
-          <span style={{ fontSize: '30px' }}> {` ${currentPage}`}  </span>
+          <span style={{ fontSize: '30px', position: "relative", top: "5px" }}> {` ${currentPage}`}  </span>
 
-          <button disabled={currentPage === Math.ceil(count / 10) ? true : false} onClick={increment}>
+          <Button
+            onClick={() => {
+              if (currentPage < 5) {
+                increment();
+              }
+            }}
+            bgColor={"royalblue"}
+            _hover={{ backgroundColor: "royalblue" }}
+            ml={3}
+          >
             NEXT
-          </button>
+          </Button>
         </div>
       </div>
 
