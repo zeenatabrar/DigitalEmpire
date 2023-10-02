@@ -10,6 +10,7 @@ import SingleProductPage from "../pages/SingleProductPage"
 import Products from '../pages/Products';
 
 import Payment from '../pages/Payment';
+import Cart from '../pages/Cart';
 
 const AllRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AllRoutes = () => {
       <Route path="/about" element={<About />}></Route>
       <Route path="/contact" element={<Contact />}></Route>
       <Route path="/login" element={<Login />}></Route>
+      <Route path="/cart" element={<Cart />}></Route>
       <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}></Route>
       <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>}></Route>
       <Route path="/product/:id" element={<PrivateRoute><SingleProductPage /></PrivateRoute>}></Route>

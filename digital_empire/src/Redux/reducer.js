@@ -1,4 +1,10 @@
-import { LOGOUT, PRODUCT_ADDED_TO_CART, PRODUCT_DATA_FAILURE, PRODUCT_DATA_LOADING, PRODUCT_DATA_SUCCESS } from "./actionTypes";
+import { 
+  LOGOUT, 
+  PRODUCT_ADDED_TO_CART, 
+  PRODUCT_DATA_FAILURE, 
+  PRODUCT_DATA_LOADING, 
+  PRODUCT_DATA_SUCCESS, 
+  PRODUCT_REMOVE_FROM_CART } from "./actionTypes";
 
 const initialState = {
   isLoading: true,
@@ -22,6 +28,8 @@ export const ProductReducer = (state = initialState, { type, payload }) => {
       }
     case PRODUCT_ADDED_TO_CART:
       return { ...state, cart: [...state.cart, payload] }
+    case PRODUCT_REMOVE_FROM_CART:
+      return {...state,cart:state.cart.filter((el)=> el.id!==payload)}
     default:
       return state;
   }
