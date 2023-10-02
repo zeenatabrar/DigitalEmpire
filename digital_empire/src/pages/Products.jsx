@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect ,useState} from "react";
+import { useEffect, useState } from "react";
 import { fetchdata } from "../Redux/action";
 import { useSearchParams } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
@@ -12,18 +12,16 @@ const Products = () => {
   const product = useSelector((store) => store.productData);
   const count = useSelector((store) => store.page);
   const isLoading = useSelector((store) => store.isLoading);
-  const [currentPage, setCurrentPage] =useState(1);
-  const [Page] =useState(Math.ceil(count/10));
-  
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchParams] = useSearchParams();
-  console.log(Math.ceil(count/10))
- 
+
   function decrement() {
     setCurrentPage(currentPage - 1);
   }
   function increment() {
     setCurrentPage(currentPage + 1);
   }
+
   const paramObj = {
     params: {
       Category: searchParams.getAll("Category"),
@@ -34,10 +32,9 @@ const Products = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchdata(currentPage,paramObj));
-    
+    dispatch(fetchdata(paramObj));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage,searchParams]);
+  }, [currentPage, searchParams]);
   return (
     <DIV>
 
@@ -55,17 +52,16 @@ const Products = () => {
 
         <br />
         <div>
-     <button disabled={currentPage === 1 ? true : false} onClick={decrement}>
-        PREVIOUS
-      </button>
+          <button disabled={currentPage === 1 ? true : false} onClick={decrement}>
+            PREVIOUS
+          </button>
 
-         <span style={{fontSize:'30px'}}> {` ${currentPage}`}  </span>
+          <span style={{ fontSize: '30px' }}> {` ${currentPage}`}  </span>
 
-        <button disabled={currentPage === Math.ceil(count/10)? true : false} onClick={increment}>
-        NEXT
-      </button>
-    </div>
-
+          <button disabled={currentPage === Math.ceil(count / 10) ? true : false} onClick={increment}>
+            NEXT
+          </button>
+        </div>
       </div>
 
     </DIV>

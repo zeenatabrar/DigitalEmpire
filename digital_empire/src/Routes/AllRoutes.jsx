@@ -12,6 +12,7 @@ import Products from '../pages/Products';
 import Cart from "../pages/Cart";
 import Payment from '../pages/Payment';
 import Profile from '../pages/Profile';
+import Search from '../pages/Search';
 
 const AllRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const AllRoutes = () => {
       <Route path="/contact" element={<Contact />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signIn" element={<Signup />}></Route>
+      <Route path="/search" element={<Search />}></Route>
       <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}></Route>
       <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>}></Route>
       <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>}></Route>

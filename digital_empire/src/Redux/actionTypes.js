@@ -5,3 +5,5 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT = "LOGOUT";
 export const PRODUCT_ADDED_TO_CART = "product-add-cart";
+export const SEARCH = "SEARCH";
+export const SEARCH_FAILURE = "SEARCH_FAILURE";
