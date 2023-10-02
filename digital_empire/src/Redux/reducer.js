@@ -7,6 +7,7 @@ const initialState = {
   theme: "light",
   isAuth: false,
   cart: [],
+  page:1,
   userName: "",
   user: {}
 }
@@ -15,7 +16,7 @@ export const ProductReducer = (state = initialState, { type, payload }) => {
     case PRODUCT_DATA_LOADING:
       return { ...state, isLoading: true }
     case PRODUCT_DATA_SUCCESS:
-      return { ...state, isLoading: false, productData: payload, isError: false }
+      return { ...state, isLoading: false, productData: payload.data, isError: false ,page:payload.headers["x-total-count"]}
     case PRODUCT_DATA_FAILURE:
       return { ...state, isLoading: false, isError: true }
     case LOGOUT:

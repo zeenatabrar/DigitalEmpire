@@ -1,11 +1,11 @@
 import axios from "axios"
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, PRODUCT_DATA_FAILURE, PRODUCT_DATA_LOADING, PRODUCT_DATA_SUCCESS } from "./actionTypes"
-export const fetchdata = (params) => (dispatch) => {
+export const fetchdata = (currentPage,params) => (dispatch) => {
   dispatch({ type: PRODUCT_DATA_LOADING });
-  axios.get("https://digital-empire.onrender.com/products?", params)
+  axios.get(`https://digital-empire.onrender.com/products??_limit=10&_page=${currentPage}`, params)
     .then(res => {
-      console.log(res)
-      dispatch({ type: PRODUCT_DATA_SUCCESS, payload: res.data })
+      console.log(res.headers["x-total-count"])
+      dispatch({ type: PRODUCT_DATA_SUCCESS, payload: res})
     })
     .catch(dispatch({ type: PRODUCT_DATA_FAILURE }));
 }
