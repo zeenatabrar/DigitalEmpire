@@ -137,7 +137,7 @@ const Signup = () => {
           </Center>
         </section>
       ) : (
-        <section className="form-section Nunito" style={{ marginTop: "2rem" }}>
+        <section className="register-form-section Nunito" style={{ marginTop: "2rem" }}>
           <p
             ref={errRef}
             className={errMsg ? "errMsg" : "offscreen"}
