@@ -151,14 +151,16 @@ const Payment = () => {
   }
 
   // --------------------grand Total---------------------
+  let total=0
+
   for(let i=0;i<cart.length;i++){
-    let amt=cart[i].price
-    for(let j=0;j<amt;j++){
-      console.log(amt[j])
-    }
+    total=total+(cart[i].price.replace(/,/g, '')*cart[i].quantity)
+  }
+  console.log(total)
+  
   
     // console.log(parseInt(amt.replace(",","")))
-  }
+  
 // ----------------------------------------------------------------------------
 
 if(flag){
@@ -274,8 +276,8 @@ return (<Alert
             <Tbody>
               {cart.map((el)=><Tr>
                 <Td>{el.name}</Td>
-                <Td>1</Td>
-                <Td isNumeric>{el.price}</Td>
+                <Td>{el.quantity}</Td>
+                <Td isNumeric>{el.price.replace(/,/g, '')*el.quantity}</Td>
               </Tr>)}
               
             </Tbody>
@@ -283,7 +285,7 @@ return (<Alert
               <Tr>
                 <Td>Grand Total</Td>
                 <Td></Td>
-                <Td>{}</Td>
+                <Td>{total}</Td>
               </Tr>
             </Tfoot>
           </Table>
