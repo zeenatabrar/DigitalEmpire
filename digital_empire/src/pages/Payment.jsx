@@ -113,6 +113,7 @@ const Payment = () => {
           status: 'error',
           duration: 9000,
           isClosable: true,
+          position: "top"
         })
       }
       al()
@@ -141,6 +142,7 @@ const Payment = () => {
           status: 'error',
           duration: 9000,
           isClosable: true,
+          position: "top"
         })
       }
       al()

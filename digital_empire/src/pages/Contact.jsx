@@ -25,7 +25,9 @@ const Contact = () => {
   }
 
   const postMessage = (data) => {
-    return axios.post("https://65152628dc3282a6a3cdeb86.mockapi.io/messages", data);
+    return axios.post("https://65152628dc3282a6a3cdeb86.mockapi.io/messages", data).then((res) => {
+      console.log("successfully posted", res.data);
+    });
   }
 
   const handleSubmit = (e) => {
@@ -39,6 +41,7 @@ const Contact = () => {
             status: 'success',
             duration: 9000,
             isClosable: true,
+            position: "top"
           })
         }
         al()
@@ -85,7 +88,7 @@ const Contact = () => {
             <Textarea border={"1px solid black"} type="text" placeholder="What can we help you" name='message' value={message} onChange={handleChange} />
           </div>
           <div className='button'>
-            <Button>Submit</Button>
+            <Button type="submit">Submit</Button>
           </div>
         </form>
       </div>
