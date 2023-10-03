@@ -6,7 +6,7 @@ Tag line : we provide latest and 100% quality assured electronics at competitive
 
 - [This is a React Project built for practice purposes the website is on theme of and electonics store site it consists basic functionality but more focus is on UI the project contains Home page, About Page, Products page, Cart Page, Register Page and Login Page.](#description)
 
-- [Features](#features)
+## [Features](#features)
 
 1. Uses Chakra UI and styled components.
 2. Register functionality.
@@ -18,7 +18,19 @@ Tag line : we provide latest and 100% quality assured electronics at competitive
 8. Good Home page and About page designs.
 9. site is fully responsive.
 
-- [Screenshots](#screenshots)
+## Tech Stack
+
+1. React JS with React-Redux.
+2. Chakra UI.
+3. styled components.
+
+## Api's
+
+1. https://digital-empire.onrender.com/products
+2. https://digital-empire.onrender.com/users
+3. https://65152628dc3282a6a3cdeb86.mockapi.io/messages
+
+## [Screenshots](#screenshots)
 
 ![Screenshot 1](./digital_empire/public/screenshots/Home-1.png)
 
