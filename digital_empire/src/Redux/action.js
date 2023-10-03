@@ -1,5 +1,5 @@
 import axios from "axios"
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, PRODUCT_DATA_FAILURE, PRODUCT_DATA_LOADING, PRODUCT_DATA_SUCCESS, SEARCH, SEARCH_FAILURE } from "./actionTypes"
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, PRODUCT_DATA_FAILURE, PRODUCT_DATA_LOADING, PRODUCT_DATA_SUCCESS, SEARCH, SEARCH_FAILURE, CART_QUANTITY_UPDATED } from "./actionTypes"
 export const fetchdata = (currentPage, params) => (dispatch) => {
   dispatch({ type: PRODUCT_DATA_LOADING });
   axios.get(`https://digital-empire.onrender.com/products?_limit=10&_page=${currentPage}`, params)
@@ -48,4 +48,8 @@ export const search = (searchKey) => (dispatch) => {
       dispatch({ type: SEARCH, payload: res.data });
     })
     .catch((err) => { dispatch({ type: SEARCH_FAILURE, payload: err }) })
+}
+
+export const quantityUpdate = (arr) => (dispatch) => {
+  dispatch({ type: CART_QUANTITY_UPDATED, payload: arr });
 }

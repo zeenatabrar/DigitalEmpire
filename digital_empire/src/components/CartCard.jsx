@@ -2,14 +2,16 @@ import styled from "styled-components"
 import { IconButton, Input, InputRightElement, InputLeftElement, InputGroup, Button } from "@chakra-ui/react"
 import { AddIcon, MinusIcon } from "@chakra-ui/icons"
 
-const CartCard = ({ id, image, name, price, removeProduct, setQuantity, quantity, index }) => {
-  price = price.toLocaleString("en-In");
+const CartCard = ({ id, image, name, price, quantity, removeProduct, handleDecClick, handleIncClick }) => {
+  let pr = (price.replace(/,/g, '') * quantity)
+  pr = pr.toLocaleString("en-In");
+
   return (
     <><DIV>
       <img src={image} alt="" className="image" />
       <div className="col-flex">
         <div><p className="name">{name}</p></div>
-        <div><h3>₹ {price}</h3></div>
+        <div><h3>₹ {pr}</h3></div>
         <InputGroup>
           <InputLeftElement>
             <IconButton
@@ -17,21 +19,23 @@ const CartCard = ({ id, image, name, price, removeProduct, setQuantity, quantity
               colorScheme="blue"
               icon={<MinusIcon />}
               onClick={() => {
-                if (quantity[index] > 1) {
-                  setQuantity((prev) => prev.map((el, ind) => ind === index ? el - 1 : el));
+                if (quantity > 1) {
+                  handleDecClick(id);
                 }
               }}
             >
             </IconButton>
           </InputLeftElement>
-          <Input value={quantity[index]} textAlign={"center"} mx="auto" />
+          <Input value={quantity} textAlign={"center"} mx="auto" />
           <InputRightElement>
             <IconButton
               mr={1}
               colorScheme="blue"
               icon={<AddIcon />}
               onClick={() => {
-                setQuantity((prev) => prev.map((el, ind) => ind === index ? el + 1 : el));
+                if (quantity < 3) {
+                  handleIncClick(id);
+                }
               }}
             >
             </IconButton>
@@ -39,7 +43,6 @@ const CartCard = ({ id, image, name, price, removeProduct, setQuantity, quantity
         </InputGroup>
         <Button bgColor={"red.500"} onClick={() => removeProduct(id)} mx="auto" w="40%">Remove</Button>
       </div>
-
     </DIV >
     </>
   )
@@ -51,6 +54,14 @@ const DIV = styled.div`
     width: 15rem;
     height: 12rem;
   }
+
+  @media (max-width: 600px)
+  {
+    .image
+    {
+      margin: auto;
+    }
+  }
   .col-flex
   {
     display: flex;
@@ -61,6 +72,7 @@ const DIV = styled.div`
   }
   padding-right: 1rem;
   padding-left: 1rem;
+  padding-bottom: 1rem;
   border-radius: 15px;
     display:flex;
     width:100%;
@@ -96,7 +108,7 @@ const DIV = styled.div`
         font-size:30px
       }
     }
-    @media (max-width: 768px) {
+    @media (max-width: 980px) {
     flex-direction: column;
     height:auto;
     .img,
