@@ -1,4 +1,6 @@
-import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, PRODUCT_ADDED_TO_CART, PRODUCT_DATA_FAILURE, PRODUCT_DATA_LOADING, PRODUCT_DATA_SUCCESS, SEARCH } from "./actionTypes";
+
+import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, PRODUCT_ADDED_TO_CART, PRODUCT_DATA_FAILURE, PRODUCT_DATA_LOADING, PRODUCT_DATA_SUCCESS ,PRODUCT_REMOVE_FROM_CART, cart_quantity_dec, cart_quantity_inc,SEARCH } from "./actionTypes";
+
 
 const initialState = {
   isLoading: true,
@@ -38,7 +40,24 @@ export const ProductReducer = (state = initialState, { type, payload }) => {
         return { ...state, search: payload };
       }
     case PRODUCT_ADDED_TO_CART:
-      return { ...state, cart: [...state.cart, payload] }
+      return { ...state, 
+        cart: [...state.cart, { ...payload, quantity: 1 } ] }
+      case PRODUCT_REMOVE_FROM_CART:
+        return {...state,cart:state.cart.filter((el)=> el.id!==payload)}
+    case cart_quantity_inc:
+      return {
+        ...state,
+        cart: state.cart.map(item => 
+          item.id === payload ? { ...item, quantity: item.quantity + 1 } : item
+        )
+      };
+      case cart_quantity_dec:
+        return {
+          ...state,
+          cart: state.cart.map(item => 
+            item.id === payload ? { ...item, quantity: item.quantity - 1 } : item
+          )
+        };
     default:
       return state;
   }
