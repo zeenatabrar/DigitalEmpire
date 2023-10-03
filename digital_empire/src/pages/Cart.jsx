@@ -19,29 +19,29 @@ const Cart = () => {
     dispatch({ type: PRODUCT_REMOVE_FROM_CART, payload: id })
   }
 
-  const buyProducts = () => {
-    navigate("/payment")
-  }
+  // const buyProducts = () => {
+  //   navigate("/payment")
+  // }
 
-  const handleIncClick = (i) => {
-    setQuantity(prevQuantity => {
-      const updatedQuantity = [...prevQuantity];
-      updatedQuantity[i] += 1;
-      return updatedQuantity;
-    });
+  // const handleIncClick = (i) => {
+  //   setQuantity(prevQuantity => {
+  //     const updatedQuantity = [...prevQuantity];
+  //     updatedQuantity[i] += 1;
+  //     return updatedQuantity;
+  //   });
 
-  };
+  // };
 
-  const handleDecClick = (i) => {
-    setQuantity(prevQuantity => {
-      const updatedQuantity = [...prevQuantity];
-      // updatedQuantity[i] -= 1;
-      if (updatedQuantity[i] > 1) {
-        updatedQuantity[i] -= 1;
-      }
-      return updatedQuantity;
-    });
-  };
+  // const handleDecClick = (i) => {
+  //   setQuantity(prevQuantity => {
+  //     const updatedQuantity = [...prevQuantity];
+  // updatedQuantity[i] -= 1;
+  //     if (updatedQuantity[i] > 1) {
+  //       updatedQuantity[i] -= 1;
+  //     }
+  //     return updatedQuantity;
+  //   });
+  // };
 
   let sum = 0;
   for (let i = 0; i < cart.length; i++) {
@@ -53,6 +53,7 @@ const Cart = () => {
     if (cart.length === 0) {
       navigate("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart])
 
 
