@@ -197,7 +197,7 @@ const CheckboxContainer = styled.div`
   flex-direction: column;
   /* font-size: 16px; */
   margin-bottom: 1.5rem;
-  margin-top: 1.5rem;
+  /* margin-top: 1rem; */
 
   .heading
   {
