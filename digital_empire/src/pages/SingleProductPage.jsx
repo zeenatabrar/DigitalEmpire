@@ -83,7 +83,7 @@ justify-content:space-between;
  .Image{
     width:40%;
     img{
-        width:100%
+        width: 100%;
     }
  };
  .Detail{
@@ -168,7 +168,7 @@ const CenteredImage = styled.img`
   margin: auto; /* Center the image within the container */
   width: 90%;
   height: 90%;
-  object-fit: cover;
+  object-fit: contain;
   padding: 0.5rem;
 `;
 const ActionButton = styled.button`
