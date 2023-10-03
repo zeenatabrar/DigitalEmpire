@@ -71,6 +71,7 @@ export const Login = () => {
 
   useEffect(() => {
     userRef.current.focus();
+    console.log("fetching users data");
     let usersRes = axios.get("https://digital-empire.onrender.com/users")
       .then((res) => {
         return res.data;
@@ -136,7 +137,7 @@ export const Login = () => {
   };
 
   return (
-    <section style={{ marginTop: "2rem", fontSize: "1.3rem" }} className="form-section Nunito">
+    <section style={{ marginTop: "2rem", fontSize: "1.3rem" }} className="login-form-section Nunito">
       <p
         ref={errRef}
         className={errMsg ? "errMsg" : "offscreen"}

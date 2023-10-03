@@ -19,7 +19,7 @@ import { FaBars, FaCartArrowDown, FaHome, FaProductHunt, FaTimes } from "react-i
 import { FcAbout, FcContacts } from "react-icons/fc";
 import { SlLogin, SlLogout } from "react-icons/sl";
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../Redux/action';
+import { logout, search } from '../Redux/action';
 import { Link } from "react-router-dom";
 
 const NAVBAR = styled.div`
@@ -193,11 +193,35 @@ const Navbar = () => {
 
   const [activeLink, setActiveLink] = useState(initialState);
 
+  const [searchKey, setSearchKey] = useState("");
+
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 950);
 
   const handleResize = () => {
     setIsSmallScreen(window.innerWidth < 950);
   };
+
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      handleSearch();
+    }, 1000);
+
+    return () => {
+      clearTimeout(debounceTimer);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchKey]);
+
+  const handleSearch = () => {
+    console.log("handle search invoked");
+    if (searchKey.length > 0) {
+      dispatch(search(searchKey));
+      navigate("/search");
+    }
+    else {
+      navigate("/");
+    }
+  }
 
   useEffect(() => {
     // Add event listener for window resize
@@ -228,9 +252,24 @@ const Navbar = () => {
         });
       }}><Link to={"/"}><img className='logo' src="digital-empire-logo.png" alt="" /></Link></div>
       <InputGroup>
-        <Input type='text' placeholder='Search' bgColor={'white'}>
+        <Input
+          type='text'
+          placeholder='Search'
+          textAlign="center"
+          bgColor={'white'}
+          value={searchKey}
+          onChange={(e) => {
+            if (e.target.value === "") {
+              setSearchKey(e.target.value);
+              navigate("/");
+            }
+            else {
+              setSearchKey(e.target.value);
+            }
+          }}
+        >
         </Input>
-        <InputRightElement>
+        <InputRightElement onClick={handleSearch}>
           <IconButton
             colorScheme='blue'
             aria-label='Search database'

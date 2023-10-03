@@ -118,7 +118,7 @@ const Signup = () => {
   return (
     <>
       {success ? (
-        <section className="formsection" style={{ marginTop: "2rem" }}>
+        <section className="register-form-section" style={{ marginTop: "2rem" }}>
           <Center>
             <VStack spacing={6} align="center">
               <Text fontSize="3xl" color="purple">

@@ -5,7 +5,7 @@
   font-family: 'Nunito', sans-serif;
 }
 
-.form-section {
+.login-form-section {
   width: 100%;
   max-width: 45%;
   /* min-height: 400px; */
@@ -20,9 +20,18 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-a,
-a:visited {
-  color: #fff;
+@media (max-width: 1050px) {
+  .login-form-section {
+    max-width: 100%;
+    width: 65%;
+  }
+}
+
+@media (max-width: 500px) {
+  .login-form-section {
+    max-width: 100%;
+    width: 90%;
+  }
 }
 
 input[type="text"],

@@ -12,7 +12,6 @@ export const Sidebar = () => {
     let newcategory = [...category]
     if (newcategory.includes(value)) {
       newcategory = newcategory.filter((el) => el !== value)
-
     }
     else {
       newcategory.push(value)
@@ -28,7 +27,6 @@ export const Sidebar = () => {
   useEffect(() => {
     let params = {
       Category: category,
-
     }
     order && (params.order = order)
 

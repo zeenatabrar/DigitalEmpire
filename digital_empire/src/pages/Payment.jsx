@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Input, Heading, Button, Textarea, Text } from '@chakra-ui/react'
+import { Input,Heading,Button,Textarea,Text } from '@chakra-ui/react'
 import {
   Table,
   Thead,
@@ -10,7 +10,7 @@ import {
   Th,
   Td,
 
-  TableContainer, Flex
+  TableContainer,Flex
 } from '@chakra-ui/react'
 
 import {
@@ -24,71 +24,163 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 
-import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from '@firebase/auth'
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
+
+import { useToast } from '@chakra-ui/react'
+import { Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+
 
 const Payment = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  // payment method-----------------------------------------------------------
-  const [paymentMethod, setPaymentMethod] = useState('')
+  const toast = useToast()
+
+  const cart=useSelector((store)=>
+    store.cart
+  )
+  // console.log(cart)
+
+// payment method-----------------------------------------------------------
+  const [payment,setPayment]=useState({
+    fname:'',
+    lname:'',
+    phone:'',
+    email:'',
+    address:'',
+    city:'',
+    state:'',
+    zipCode:'',
+    method:''
+  })
+
+  const{fname,lname,phone,email,address,city,state,zipCode,method}=payment
 
 
 
-  const handlePayment = (e) => {
-    let { value } = e.target
-    setPaymentMethod(value)
+  const handlePayment=(e)=>{
+    let {value,name}=e.target
+    setPayment((prev)=>{
+      return{...prev,[name]:value}
+    })
   }
 
-  // --------------------------------------------------------------------------
+  // console.log(payment)
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    if (paymentMethod === 'card') {
-      onOpen()
-    }
-    else {
+  // cardpay--------------------------------------------------------
 
-    }
+
+  const [pay,setPay]=useState({
+    cname:'',
+    cnumber:'',
+    exdate:'',
+    cvv:''
+  })
+
+  const {cname,cnumber,exdate,cvv}=pay
+
+
+  function cardPay(e){
+    const {name,value}=e.target
+    setPay((prev)=>{
+      return{...prev,[name]:value}
+    })
   }
 
-  // OTP verification------------------------------------------------------------
-  const [mobile, setMobile] = useState('')
-  console.log(mobile)
 
-  function setupRecaptcha() {
-    const auth = getAuth();
-    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
-      'size': 'invisible',
-      'callback': (response) => {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-        onSentOtp();
-        console.log('Recaptcha verified');
+  const [flag,setFlag]=useState(false)
+
+  function finalSubmit(){
+    if(cname && cnumber && exdate && cvv){
+      setFlag(true)
+      function redirect(){
+        setTimeout(()=>{
+          return <Navigate to='/products'/>
+        },30)
       }
-    });
+      redirect()
+      
+    }
+    else{
+      function al(){
+        toast({
+          title: 'Fill all the fields',
+          description: "Some fields are empty !",
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
+      }
+      al()
+    }
   }
 
-  const onSentOtp = () => {
-    setupRecaptcha()
-    const phoneNumber = '+91' + mobile
-    const appVerifier = window.recaptchaVerifier;
+// --------------------------------------------------------------------------
 
 
-    const auth = getAuth();
-    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-      .then((confirmationResult) => {
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        window.confirmationResult = confirmationResult;
-        console.log('otp sent')
-        // ...
-      }).catch((error) => {
-        // Error; SMS not sent
-        // ...
-        console.log('SMS not sent')
-      });
+
+  function handleSubmit(e){
+    e.preventDefault()
+    if(fname && lname && phone && email && address && city && state && zipCode && method){
+      if(method==='card'){
+        onOpen()
+      }
+      else{
+        setFlag(true)
+      }
+    }
+    else{
+      function al(){
+        toast({
+          title: 'Fill all the fields',
+          description: "Some fields are empty !",
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
+      }
+      al()
+      
+    }
+    
   }
-  // ----------------------------------------------------------------------------
 
+  // --------------------grand Total---------------------
+  for(let i=0;i<cart.length;i++){
+    let amt=cart[i].price
+    for(let j=0;j<amt;j++){
+      console.log(amt[j])
+    }
+  
+    // console.log(parseInt(amt.replace(",","")))
+  }
+// ----------------------------------------------------------------------------
+
+if(flag){
+return (<Alert
+      status='success'
+      variant='subtle'
+      flexDirection='column'
+      alignItems='center'
+      justifyContent='center'
+      textAlign='center'
+      height='200px'
+    >
+      <AlertIcon boxSize='40px' mr={0} />
+      <AlertTitle mt={4} mb={1} fontSize='lg'>
+        Order Placed Successfully!
+      </AlertTitle>
+      <AlertDescription maxWidth='sm'>
+        Thanks for oredering in our application. Our team will get back to you soon.
+      </AlertDescription>
+    </Alert>)
+    }
+  
   return (
     <DIV>
       <div className='form-side'>
@@ -101,61 +193,61 @@ const Payment = () => {
             <div className='name-surname'>
               <div className='first-name'>
                 <label>FirstName</label>
-                <Input type="text" />
+                <Input type="text" name='fname' value={fname} onChange={handlePayment}/>
               </div>
               <div className="last-name">
                 <label>Last Name</label>
-                <Input type="text" />
+                <Input type="text" name='lname' value={lname} onChange={handlePayment}/>
               </div>
             </div>
 
             <div className="phone-adress">
               <div className="phone">
                 <label>Phone Number</label>
-                <Input type="number" value={mobile} onChange={(e) => { setMobile(e.target.value) }} />
+                <Input type="number" name='phone' value={phone} onChange={handlePayment}/>
               </div>
               <div className="email">
                 <label>Email Address</label>
-                <Input type="email" />
+                <Input type="email" name='email' value={email} onChange={handlePayment}/>
               </div>
             </div>
             <div className="full-adress">
               <label>Full Adress</label>
-              <Textarea name="adress"  ></Textarea>
+              <Textarea name='address'  value={address} onChange={handlePayment}></Textarea>
             </div>
             <div className="city-state-zipcode">
               <div className='city'>
                 <label>City</label>
-                <Input type="text" />
+                <Input type="text" name='city' value={city} onChange={handlePayment}/>
               </div>
 
               <div className="state">
                 <label>State</label>
-                <Input type="text" />
+                <Input type="text" name='state' value={state} onChange={handlePayment}/>
               </div>
 
               <div className="zipcode">
                 <label>Zip-code</label>
-                <Input type="number" />
+                <Input type="number" name='zipCode' value={zipCode} onChange={handlePayment}/>
               </div>
-            </div>
+            </div> 
 
             <h3 className='pay-head'>Payment Method</h3>
             <div className="payment-type">
-
+              
               <div className="card pay">
-                <input type="radio" name='card' value='card' checked={paymentMethod === 'card'} onChange={handlePayment} />
+                <input type="radio" name='method' value='card' checked={method==='card'} onChange={handlePayment}/>
                 <label>Card</label>
               </div>
               <div className="upi pay">
-                <input type="radio" name='upi' value='upi' checked={paymentMethod === 'upi'} onChange={handlePayment} />
+                <input type="radio" name='method' value='upi' checked={method==='upi'} onChange={handlePayment}/>
                 <label>Upi</label>
               </div>
               <div className="cash pay">
-                <input type="radio" name='cash' value='cash' checked={paymentMethod === 'cash'} onChange={handlePayment} />
+                <input type="radio" name='method' value='cash' checked={method==='cash'} onChange={handlePayment}/>
                 <label>Cash on delivery</label>
               </div>
-
+             
             </div>
 
             <div className="place-order">
@@ -180,18 +272,18 @@ const Payment = () => {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>Mobile</Td>
+              {cart.map((el)=><Tr>
+                <Td>{el.name}</Td>
                 <Td>1</Td>
-                <Td isNumeric>200000</Td>
-              </Tr>
-
+                <Td isNumeric>{el.price}</Td>
+              </Tr>)}
+              
             </Tbody>
             <Tfoot>
               <Tr>
                 <Td>Grand Total</Td>
                 <Td></Td>
-                <Td isNumeric>200000</Td>
+                <Td>{}</Td>
               </Tr>
             </Tfoot>
           </Table>
@@ -206,17 +298,17 @@ const Payment = () => {
             <ModalBody>
 
               <Text mt={3}>Card Name</Text>
-              <Input type="text" />
+              <Input type="text" name='cname' value={cname} onChange={cardPay}/>
               <Text mt={3}>Card Number</Text>
-              <Input type="text" />
+              <Input type="text" name='cnumber' value={cnumber} onChange={cardPay}/>
               <Flex className='cvv' gap={2} mt={3}>
                 <div>
-                  <Text>expiry date</Text>
-                  <Input type="text" />
+                <Text>expiry date</Text>
+                <Input type="date" name='exdate' value={exdate} onChange={cardPay}/>
                 </div>
                 <div>
                   <Text>CVV</Text>
-                  <Input type='password' />
+                  <Input type='password' name='cvv' value={cvv} onChange={cardPay}/>
                 </div>
               </Flex>
 
@@ -226,17 +318,19 @@ const Payment = () => {
               <Button colorScheme='blue' mr={3} onClick={onClose}>
                 Close
               </Button>
-              <Button variant='ghost' onClick={onSentOtp}>Send OTP</Button>
+              <Button variant='ghost' onClick={finalSubmit}>Pay</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
+        
       </div>
-
+      
+      
     </DIV>
   )
 }
 
-const DIV = styled.div`
+const DIV=styled.div`
   /* margin: 0px; */
   text-align: left;
   /* background-color: #f4f3e8; */
